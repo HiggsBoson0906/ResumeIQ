@@ -7,18 +7,14 @@ const resumeSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    fileName: {
-      type: String,
+    score: {
+      type: Number,
       required: true,
     },
-    filePath: {
-      type: String,
-      required: true,
-    },
-    extractedText: {
-      type: String,
-      default: "",
-    },
+    contentScore: Number,
+    structureScore: Number,
+    skillsScore: Number,
+    atsScore: Number,
   },
   {
     timestamps: true,
