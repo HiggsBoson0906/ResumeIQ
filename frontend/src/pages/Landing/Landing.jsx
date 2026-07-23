@@ -1,55 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './Landing.css';
+import TextType from '../../components/TextType';
+import { motion } from 'framer-motion';
+import ScanSimulator from '../../components/ScanSimulator';
+import BlurText from '../../components/BlurText';
+import TargetCursor from '../../components/TargetCursor';
 
 const Landing = () => {
-  useEffect(() => {
-    // Intersection Observer for the word-by-word reveal
-    const wordObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const words = entry.target.querySelectorAll('.reveal-word');
-            words.forEach((w, i) => {
-              setTimeout(() => w.classList.add('in'), i * 70);
-            });
-            wordObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-
-    document.querySelectorAll('[data-reveal]').forEach((el) => wordObserver.observe(el));
-
-    // Intersection Observer for features fade-in
-    const featureObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            featureObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    document.querySelectorAll('.feature').forEach((el) => featureObserver.observe(el));
-
-    // Cleanup observers on unmount
-    return () => {
-      wordObserver.disconnect();
-      featureObserver.disconnect();
-    };
-  }, []);
-
-  // Helper function to render text word-by-word for the reveal animation
-  const renderRevealWords = (text, isDim = false) => {
-    return text.split(/\s+/).map((word, index) => (
-      <span key={`${word}-${index}`} className={`reveal-word ${isDim ? 'dim' : ''}`}>
-        {word}&nbsp;
-      </span>
-    ));
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
   return (
@@ -68,62 +28,125 @@ const Landing = () => {
             <a href="#how-it-works">How it Works</a>
           </li>
           <li>
-            <a href="#pricing">Pricing</a>
-          </li>
-          <li>
             <a href="#faq">FAQ</a>
           </li>
         </ul>
         <div className="nav-right">
-          <a className="nav-login" href="/login">
+          <motion.a 
+            className="nav-login" 
+            href="/login"
+            whileHover={{ color: "var(--glow-violet)" }}
+          >
             Login
-          </a>
-          <a className="nav-cta" href="/register">
+          </motion.a>
+          <motion.a 
+            className="nav-cta" 
+            href="/register"
+            whileHover={{ scale: 1.05, boxShadow: "0 4px 15px rgba(99, 102, 241, 0.3)" }}
+            whileTap={{ scale: 0.98 }}
+          >
             Get Started
-          </a>
+          </motion.a>
         </div>
       </nav>
 
+      {/* Hero Section */}
       <section id="hero">
-        <div className="eyebrow">Introducing ResumeIQ</div>
-        <h1 className="metal">
-          See what the
-          <br />
-          machines see.
-        </h1>
-        <p className="sub">
-          Your resume, scored, gapped, and rewritten — before an ATS ever gets the chance to reject it.
-        </p>
-        <a className="cta" href="#story">
-          Analyze your resume
-        </a>
+        <div className="hero-container">
+          <motion.div
+            className="eyebrow"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Introducing ResumeIQ
+          </motion.div>
+
+          <motion.h1
+            className="metal"
+            style={{ fontWeight: 900 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            See what the
+            <br />
+            machines see.
+          </motion.h1>
+
+          <motion.p
+            className="sub"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Your resume, scored, gapped, and rewritten — before an ATS ever gets the chance to reject it.
+          </motion.p>
+
+          <motion.a
+            className="cta"
+            href="/login"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 8px 30px rgba(99, 102, 241, 0.4)" }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Analyze your resume
+          </motion.a>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <ScanSimulator />
+          </motion.div>
+        </div>
       </section>
 
-      <section id="story">
-        <p className="statement" data-reveal="true">
-          <span className="reveal-line">
-            {renderRevealWords('Most resumes are never read by a person.')}
-          </span>
-          <span className="reveal-line">
-            {renderRevealWords("They're")}
-            {renderRevealWords('filtered, scored, and ranked', true)}
-          </span>
-          <span className="reveal-line">
-            {renderRevealWords('by software, first.')}
-          </span>
-        </p>
-      </section>
+      {/* Story Section */}
+      <motion.section
+        id="story"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeUpVariants}
+      >
+        <BlurText
+          text="Most resumes are never read by a person. They're filtered, scored, and ranked by software, first."
+          delay={40}
+          className="statement"
+          animateBy="words"
+          direction="bottom"
+        />
+      </motion.section>
 
-      <section id="how-it-works">
+      {/* How it Works Section */}
+      <motion.section
+        id="how-it-works"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeUpVariants}
+      >
         <div className="eyebrow">How it works</div>
         <h2 className="metal">One score. Total clarity.</h2>
         <p className="sub">
           Paste your resume and the job description. ResumeIQ compares them line by line and returns a compatibility
           score with exactly what's missing.
         </p>
-      </section>
+      </motion.section>
 
-      <section id="features">
+      {/* Features Section */}
+      <motion.section
+        id="features"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeUpVariants}
+      >
         <div className="eyebrow">Capabilities</div>
         <h2 className="metal">Built for the ATS era.</h2>
 
@@ -150,33 +173,16 @@ const Landing = () => {
             </p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section id="pricing">
-        <div className="eyebrow">Pricing</div>
-        <h2 className="metal">Simple, either way.</h2>
-        <p className="sub">Start free. Upgrade only when you're applying at scale.</p>
-
-        <div className="pricing-card">
-          <div className="eyebrow" style={{ marginBottom: 0 }}>
-            Pro
-          </div>
-          <div className="price">
-            $9<span>/month</span>
-          </div>
-          <ul className="pricing-list">
-            <li>Unlimited resume scans</li>
-            <li>Full skills-gap breakdown</li>
-            <li>AI-generated bullet rewrites</li>
-            <li>Unlimited job description comparisons</li>
-          </ul>
-          <a className="cta" href="/register">
-            Get Started
-          </a>
-        </div>
-      </section>
-
-      <section id="faq">
+      {/* FAQ Section */}
+      <motion.section
+        id="faq"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeUpVariants}
+      >
         <div className="eyebrow">FAQ</div>
         <h2 className="metal">Good to know.</h2>
 
@@ -207,22 +213,48 @@ const Landing = () => {
             </p>
           </details>
         </div>
-      </section>
+      </motion.section>
 
-      <section id="closing">
-        <p className="statement" data-reveal="true">
-          <span className="reveal-line">{renderRevealWords('Your experience was never the problem.')}</span>
-          <span className="reveal-line">
-            {renderRevealWords('The')}
-            {renderRevealWords('formatting was.', true)}
-          </span>
-        </p>
-        <a className="cta" style={{ marginTop: '40px' }} href="#hero">
+      {/* Closing Section */}
+      <motion.section
+        id="closing"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={fadeUpVariants}
+      >
+        <TextType
+          as="p"
+          className="statement"
+          style={{ minHeight: '80px' }}
+          text={['Your experience was never the problem.', 'The formatting was.']}
+          textColors={['#000000', '#000000']}
+          typingSpeed={60}
+          deletingSpeed={40}
+          pauseDuration={2000}
+          loop={true}
+          showCursor={true}
+          cursorCharacter="|"
+          cursorClassName="text-indigo-500 font-light"
+          startOnVisible={true}
+        />
+        <motion.a
+          className="cta"
+          style={{ marginTop: '40px' }}
+          href="/login"
+          whileHover={{ scale: 1.05, boxShadow: "0 8px 30px rgba(99, 102, 241, 0.4)" }}
+          whileTap={{ scale: 0.98 }}
+        >
           Try ResumeIQ
-        </a>
-      </section>
+        </motion.a>
+      </motion.section>
 
       <footer>© 2026 ResumeIQ. Built with React, Node.js, Express, PostgreSQL & Gemini API.</footer>
+      <TargetCursor 
+        targetSelector="a, button, summary, .cursor-target" 
+        cursorColor="#111827" 
+        cursorColorOnTarget="#6366f1" 
+      />
     </>
   );
 };

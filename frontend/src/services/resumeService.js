@@ -42,3 +42,9 @@ export const getResumeHistory = async () => {
   return response.data;
 };
 
+// Get Analysis by ID
+export const getAnalysisById = async (id) => {
+  const response = await api.get(`/resume/analysis/${id}`);
+  return response.data;
+};
+

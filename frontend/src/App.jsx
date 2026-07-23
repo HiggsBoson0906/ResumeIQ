@@ -6,7 +6,8 @@ import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import ResumeAnalyzer from './pages/ResumeAnalyzer/ResumeAnalyzer';
-import ResumeReport from './pages/ResumeAnalyzer/ResumeReport';
+import DetailedAnalysis from './pages/ResumeAnalyzer/DetailedAnalysis';
+
 
 // A simple protected route wrapper
 const ProtectedRoute = ({ children }) => {
@@ -27,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Toaster position="top-right" />
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -43,13 +44,13 @@ function App() {
               </ProtectedRoute>
             } 
           />
-          <Route 
-            path="/resume/report" 
+          <Route
+            path="/resume-analyzer/report/:analysisId"
             element={
               <ProtectedRoute>
-                <ResumeReport />
+                <DetailedAnalysis />
               </ProtectedRoute>
-            } 
+            }
           />
         </Routes>
       </Router>
