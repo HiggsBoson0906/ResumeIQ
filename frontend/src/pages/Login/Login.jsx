@@ -25,7 +25,7 @@ const Login = () => {
       setUser(response.user);
       
       toast.success("Login successful!");
-      navigate("/dashboard");
+      navigate("/resume-analyzer");
     } catch (err) {
       toast.error(
         err.response?.data?.message || "Login failed. Please try again."

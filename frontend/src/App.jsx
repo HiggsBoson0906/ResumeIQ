@@ -5,6 +5,8 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import ResumeAnalyzer from './pages/ResumeAnalyzer/ResumeAnalyzer';
+import ResumeReport from './pages/ResumeAnalyzer/ResumeReport';
 
 // A simple protected route wrapper
 const ProtectedRoute = ({ children }) => {
@@ -21,19 +23,6 @@ const ProtectedRoute = ({ children }) => {
   return <>{children}</>;
 };
 
-// Dummy Dashboard Component for the redirect to work
-const DummyDashboard = () => {
-  const { user, logout } = useAuth();
-  return (
-    <div style={{ padding: '2rem', color: 'var(--on-surface)' }}>
-      <h1>Dashboard</h1>
-      <p>Welcome back, {user?.fullName}!</p>
-      <button onClick={logout} style={{ padding: '0.5rem 1rem', marginTop: '1rem' }}>
-        Log out
-      </button>
-    </div>
-  );
-};
 
 function App() {
   return (
@@ -46,11 +35,19 @@ function App() {
           <Route path="/register" element={<Register />} />
           
           {/* Protected Routes */}
-          <Route 
-            path="/dashboard" 
+          <Route
+            path="/resume-analyzer"
             element={
               <ProtectedRoute>
-                <DummyDashboard />
+                <ResumeAnalyzer />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/resume/report" 
+            element={
+              <ProtectedRoute>
+                <ResumeReport />
               </ProtectedRoute>
             } 
           />

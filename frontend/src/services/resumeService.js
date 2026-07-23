@@ -25,3 +25,20 @@ export const deleteResume = async (id) => {
   const response = await api.delete(`/resume/${id}`);
   return response.data;
 };
+
+// Analyze Resume
+export const analyzeResume = async (formData) => {
+  const response = await api.post("/resume/analyze", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
+// Get Resume History
+export const getResumeHistory = async () => {
+  const response = await api.get("/resume/history");
+  return response.data;
+};
+
