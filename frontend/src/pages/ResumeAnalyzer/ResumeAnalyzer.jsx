@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { analyzeResume } from "../../services/resumeService";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+import ResumeScoreTrend from "../../components/ResumeScoreTrend";
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 const styles = {
@@ -787,6 +788,9 @@ function ResumeAnalyzer() {
             </div>
           </div>
         </div>
+        
+        {/* Resume Score Trend */}
+        <ResumeScoreTrend />
       </div>
 
       {showAlert && (
