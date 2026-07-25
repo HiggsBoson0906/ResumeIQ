@@ -9,19 +9,10 @@ const app = express();
 // CORS - allow frontend origin
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
-      "http://localhost:5174",
-      "http://127.0.0.1:5174",
-      process.env.CLIENT_URL,
-    ].filter(Boolean),
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: true,
     credentials: true,
   }),
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -43,4 +34,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-
