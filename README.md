@@ -30,7 +30,7 @@ ResumeIQ leverages **Google Gemini AI** to help job seekers understand exactly h
 
 <br/>
 
-**[🚀 Live Demo](https://resume-iq-adarshsingh31s-projects.vercel.app/)** &nbsp;•&nbsp; **[📖 Documentation](#-api-overview)** &nbsp;•&nbsp; **[🐛 Report Bug](#)** &nbsp;•&nbsp; **[✨ Request Feature](#)**
+**[🚀 Live Demo](https://resume-iq-charm.vercel.app/)** &nbsp;•&nbsp; **[📖 Documentation](#-api-overview)** &nbsp;•&nbsp; **[🐛 Report Bug](#)** &nbsp;•&nbsp; **[✨ Request Feature](#)**
 
 </div>
 
@@ -76,9 +76,9 @@ Built with a secure, scalable REST architecture, ResumeIQ combines a smooth Reac
 
 <div align="center">
 
-### 👉 [**Try ResumeIQ Live**](https://resume-iq-adarshsingh31s-projects.vercel.app/) 👈
+### 👉 [**Try ResumeIQ Live**](https://resume-iq-charm.vercel.app/) 👈
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-1abc9c?style=for-the-badge)](https://resume-iq-adarshsingh31s-projects.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-1abc9c?style=for-the-badge)](https://resume-iq-charm.vercel.app/)
 
 </div>
 
@@ -467,4 +467,3 @@ Feel free to [open an issue](https://github.com/HiggsBoson0906/resumeiq/issues) 
 **Made with ❤️ and ☕ by [Tejasvi Mahule](https://github.com/HiggsBoson0906)**
 
 </div>
-
